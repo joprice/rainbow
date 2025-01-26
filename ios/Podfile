@@ -2,6 +2,16 @@ platform :ios, '11.0'
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, '15.5'
+prepare_react_native_project!
+
 # Prevent Cocoapods from collecting stats, which adds time to each pod installation
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
@@ -65,24 +75,25 @@ end
 target 'Rainbow' do
   # Pods for Rainbow
   config = use_native_modules!
-  use_react_native!(:path => config["reactNativePath"])
+  use_react_native!(
+      :path => config[:reactNativePath],
+      # An absolute path to your application root.
+      :app_path => "#{Pod::Config.instance.installation_root}/.."
+    )
 
   # Rainbow's Internal Modules.
   pod 'Rainbow-Internals', :path => './Internals'
 
   pod 'FLAnimatedImage'
   pod 'libwebp'
-  pod 'RNInputMask', :path => '../node_modules/react-native-text-input-mask/ios/InputMask'
+  # pod 'RNInputMask', :path => '../node_modules/react-native-text-input-mask/ios/InputMask'
 
   permissions_path = '../node_modules/react-native-permissions/ios'
-  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
-  pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID.podspec"
+  # pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+  # pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID.podspec"
 
   pod "PanModal", :git => 'https://github.com/osdnk/PanModal', :commit => '67557e18491ddfd2e2d1af0f36efb8f0202589f7'
-
   pod 'Shimmer'
-
-  use_native_modules!
 
   # Enables Flipper.
   #
@@ -97,4 +108,14 @@ target 'Rainbow' do
       end
     end
   end
+
+  post_install do |installer|
+      # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+      react_native_post_install(
+        installer,
+        config[:reactNativePath],
+        :mac_catalyst_enabled => false,
+        # :ccache_enabled => true
+      )
+    end
 end
