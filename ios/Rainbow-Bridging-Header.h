@@ -2,9 +2,11 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import "React/RCTBridgeModule.h"
-#import "React/RCTViewManager.h"
-#import "React/RCTView.h"
+#import <React/RCTBridgeModule.h>
+#import <React/RCTViewManager.h>
+#import <React/RCTView.h>
+#import <React/RCTBridge.h>
+#import <React/RCTUIManager.h>
 
 #import <SDWebImage/SDWebImage.h>
 
@@ -14,3 +16,6 @@
 
 #import "RNCMScreen.h"
 #import "RNCMScreenStack.h"
+
+//@interface RCT_EXTERN_MODULE(Button, NSObject)
+//@end

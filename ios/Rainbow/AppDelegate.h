@@ -7,7 +7,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import <Rainbow-Internals/Internals.h>
+#import <Rainbow_Internals/Internals.h>
 
 #import <React/RCTBridgeDelegate.h>
 #import <Firebase.h>

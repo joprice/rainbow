@@ -33,8 +33,8 @@ RCT_EXPORT_VIEW_PROPERTY(darkMode, BOOL)
 
 @implementation TransactionListViewManager: RCTViewManager
 
-- (UIView *)view {
-  return [[TransactionListView alloc] init];
-}
+/* - (UIView *)view { */
+/*   return [[TransactionListView alloc] init]; */
+/* } */
 
 @end

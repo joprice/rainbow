@@ -29,7 +29,8 @@ RCT_EXPORT_VIEW_PROPERTY(throttle, BOOL)
 @implementation ButtonManager : RCTViewManager
 
 - (UIView *)view {
-  return [[Button alloc] init];
+  return nil;
+  /* return [[Button alloc] init]; */
 }
 
 @end

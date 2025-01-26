@@ -4,8 +4,14 @@
 //
 //  Created by Alexey Kureev on 16/01/2020.
 //
+//import ReactCommon
 
-class Button : RCTView {
+import UIKit
+import React
+//import ReactCommon
+
+//@objc(Button)
+private class Button : RCTView {
   @objc lazy var onPress: RCTBubblingEventBlock = { _ in }
   @objc lazy var onPressStart: RCTBubblingEventBlock = { _ in }
   @objc lazy var onLongPress: RCTBubblingEventBlock = { _ in };
