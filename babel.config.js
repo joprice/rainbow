@@ -18,7 +18,10 @@ module.exports = function (api) {
     [
       'module-resolver',
       {
-        alias: getAliasesFromTsConfig(),
+        alias: {
+          ...getAliasesFromTsConfig(),
+          crypto: 'react-native-quick-crypto',
+        },
         extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
         root: ['./src'],
       },
@@ -37,7 +40,7 @@ module.exports = function (api) {
     ],
   ];
 
-  const presets = ['module:metro-react-native-babel-preset'];
+  const presets = ['module:@react-native/babel-preset'];
 
   return {
     env: {

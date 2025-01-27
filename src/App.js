@@ -18,11 +18,11 @@ import branch from 'react-native-branch';
 // eslint-disable-next-line import/default
 import CodePush from 'react-native-code-push';
 
-import {
-  REACT_APP_SEGMENT_API_WRITE_KEY,
-  SENTRY_ENDPOINT,
-  SENTRY_ENVIRONMENT,
-} from 'react-native-dotenv';
+// import {
+//   REACT_APP_SEGMENT_API_WRITE_KEY,
+//   SENTRY_ENDPOINT,
+//   SENTRY_ENVIRONMENT,
+// } from 'react-native-dotenv';
 // eslint-disable-next-line import/default
 import RNIOS11DeviceCheck from 'react-native-ios11-devicecheck';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -286,6 +286,8 @@ class App extends Component {
     Navigation.setTopLevelNavigator(navigatorRef);
 
   render = () => (
+    <View></View>
+    /*
     <MainThemeProvider>
       <RainbowContextWrapper>
         <Portal>
@@ -305,6 +307,7 @@ class App extends Component {
         </Portal>
       </RainbowContextWrapper>
     </MainThemeProvider>
+    */
   );
 }
 
@@ -315,9 +318,10 @@ const AppWithRedux = connect(
   }
 )(App);
 
-const AppWithCodePush = CodePush({
-  checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
-  installMode: CodePush.InstallMode.ON_NEXT_RESUME,
-})(() => <AppWithRedux store={store} />);
+// const AppWithCodePush = CodePush({
+//   checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
+//   installMode: CodePush.InstallMode.ON_NEXT_RESUME,
+// })(() =>
+const AppWithCodePush = <AppWithRedux store={store} />;
 
 AppRegistry.registerComponent('Rainbow', () => AppWithCodePush);

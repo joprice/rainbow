@@ -136,6 +136,7 @@ PODS:
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
+  - OpenSSL-Universal (3.3.2000)
   - PanModal (1.2.7)
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
@@ -1377,7 +1378,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-aes-crypto (2.0.2):
+  - react-native-aes (3.2.1):
     - React-Core
   - react-native-background-timer (2.4.1):
     - React-Core
@@ -1413,7 +1414,7 @@ PODS:
     - React-Core
   - react-native-camera/RN (4.2.1):
     - React-Core
-  - react-native-cloud-fs (2.3.0):
+  - react-native-cloud-fs (2.7.0):
     - React
   - react-native-get-random-values (1.11.0):
     - React-Core
@@ -1421,6 +1422,50 @@ PODS:
     - React-Core
   - react-native-netinfo (11.4.1):
     - React-Core
+  - react-native-pager-view (6.7.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - react-native-quick-crypto (0.7.11):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - OpenSSL-Universal
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - react-native-randombytes (3.6.1):
     - React-Core
   - react-native-restart (0.0.27):
@@ -1497,10 +1542,10 @@ PODS:
     - InputMask (~> 6.1.0)
     - React-Core
     - React-RCTText
+  - react-native-udp (2.7.0):
+    - React
   - react-native-version-number (0.3.6):
     - React
-  - react-native-viewpager (5.0.11):
-    - React-Core
   - react-native-webview (13.13.1):
     - DoubleConversion
     - glog
@@ -1820,7 +1865,7 @@ PODS:
     - React-Core
   - RNDeviceInfo (14.0.2):
     - React-Core
-  - RNDominantColor (1.7.0):
+  - RNDominantColor (1.7.2):
     - React
   - RNFastImage (8.6.3):
     - React-Core
@@ -1896,7 +1941,7 @@ PODS:
     - Yoga
   - RNLanguages (3.0.2):
     - React
-  - RNOS (1.2.8):
+  - RNOS (1.2.6):
     - React
   - RNPermissions (5.2.4):
     - DoubleConversion
@@ -2159,8 +2204,6 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNTextSize (4.0.0-rc.1):
-    - React
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -2179,8 +2222,6 @@ PODS:
   - TcpSockets (4.0.0):
     - React
   - TOCropViewController (2.7.4)
-  - ToolTipMenu (5.2.1):
-    - React
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -2229,7 +2270,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
-  - react-native-aes-crypto (from `../node_modules/react-native-aes-crypto`)
+  - react-native-aes (from `../node_modules/react-native-aes-crypto`)
   - react-native-background-timer (from `../node_modules/react-native-background-timer`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-branch (from `../node_modules/react-native-branch`)
@@ -2238,13 +2279,15 @@ DEPENDENCIES:
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-mail (from `../node_modules/react-native-mail`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-pager-view (from `../node_modules/react-native-pager-view`)
+  - react-native-quick-crypto (from `../node_modules/react-native-quick-crypto`)
   - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-text-input-mask (from `../node_modules/react-native-text-input-mask`)
+  - react-native-udp (from `../node_modules/react-native-udp`)
   - react-native-version-number (from `../node_modules/react-native-version-number`)
-  - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -2298,12 +2341,10 @@ DEPENDENCIES:
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNStoreReview (from `../node_modules/react-native-store-review`)
   - RNSVG (from `../node_modules/react-native-svg`)
-  - RNTextSize (from `../node_modules/react-native-text-size`)
   - "segment-analytics-react-native (from `../node_modules/@segment/analytics-react-native`)"
   - Shimmer
   - "sovran-react-native (from `../node_modules/@segment/sovran-react-native`)"
   - TcpSockets (from `../node_modules/react-native-tcp`)
-  - ToolTipMenu (from `../node_modules/react-native-tooltip`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -2326,6 +2367,7 @@ SPEC REPOS:
     - JWT
     - libwebp
     - nanopb
+    - OpenSSL-Universal
     - PromisesObjC
     - PromisesSwift
     - SDWebImage
@@ -2421,7 +2463,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
-  react-native-aes-crypto:
+  react-native-aes:
     :path: "../node_modules/react-native-aes-crypto"
   react-native-background-timer:
     :path: "../node_modules/react-native-background-timer"
@@ -2439,6 +2481,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-mail"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-pager-view:
+    :path: "../node_modules/react-native-pager-view"
+  react-native-quick-crypto:
+    :path: "../node_modules/react-native-quick-crypto"
   react-native-randombytes:
     :path: "../node_modules/react-native-randombytes"
   react-native-restart:
@@ -2449,10 +2495,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-splash-screen"
   react-native-text-input-mask:
     :path: "../node_modules/react-native-text-input-mask"
+  react-native-udp:
+    :path: "../node_modules/react-native-udp"
   react-native-version-number:
     :path: "../node_modules/react-native-version-number"
-  react-native-viewpager:
-    :path: "../node_modules/@react-native-community/viewpager"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-nativeconfig:
@@ -2559,16 +2605,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-store-review"
   RNSVG:
     :path: "../node_modules/react-native-svg"
-  RNTextSize:
-    :path: "../node_modules/react-native-text-size"
   segment-analytics-react-native:
     :path: "../node_modules/@segment/analytics-react-native"
   sovran-react-native:
     :path: "../node_modules/@segment/sovran-react-native"
   TcpSockets:
     :path: "../node_modules/react-native-tcp"
-  ToolTipMenu:
-    :path: "../node_modules/react-native-tooltip"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -2606,6 +2648,7 @@ SPEC CHECKSUMS:
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
   lottie-react-native: 83580847fed6eaf097b4b6b03f6632792809d147
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  OpenSSL-Universal: b60a3702c9fea8b3145549d421fdb018e53ab7b4
   PanModal: 421fe72d4af5b7e9016aaa3b4db94a2fb71756d3
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
@@ -2639,22 +2682,24 @@ SPEC CHECKSUMS:
   React-logger: 162c09cc432b02d4a0db31b1d98f6df5243a2679
   React-Mapbuffer: eab34f6d54d26931c5f70eb19da1e36162d87bbd
   React-microtasksnativemodule: 069ef12656a93e0344851e18de6cfb7bdfd9a59e
-  react-native-aes-crypto: d7e87fd02cee7285983c00957a34063dfc4c94b3
+  react-native-aes: 2f9ce51c4bd1e9fb5c50f5c867df05bcac10884b
   react-native-background-timer: 17ea5e06803401a379ebf1f20505b793ac44d0fe
   react-native-blur: d81883c19b028d3d04b44126ea661ae9e7ff35b6
   react-native-branch: 60737f2bb7a30d72245685854bdb5954d06a6731
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
-  react-native-cloud-fs: 1cb3deba691efbb5c6fcc831959be58762d8bdfe
+  react-native-cloud-fs: 9b0a9b8439d4e1b8c45dead42280460ab85d4b25
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
   react-native-mail: 8fdcd3aef007c33a6877a18eb4cf7447a1d4ce4a
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
+  react-native-pager-view: 1e07c15ab08a6833b05923e5a2a8d5e6f8fabe4f
+  react-native-quick-crypto: d11620a138b03c6b2959530c9b5aa8643ea147fd
   react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: e0625eb857b816dff4aca46e125759cb0927e225
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-text-input-mask: a273f7823ac4cb7189ea96873fd7b4a48b8aaaaa
+  react-native-udp: ff9d13e523f2b58e6bc5d4d32321ac60671b5dc9
   react-native-version-number: b415bbec6a13f2df62bf978e85bc0d699462f37f
-  react-native-viewpager: b99b53127d830885917ef84809c5065edd614a78
   react-native-webview: a6f72ac9328c141a235fd85a7866dd691b0b799a
   React-nativeconfig: 014403841159c621de6d2f888ad829aac530f93e
   React-NativeModulesApple: 5bebad70ac824fefe9c0a04a5e2c829a91365b9d
@@ -2689,7 +2734,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNCPushNotificationIOS: 64218f3c776c03d7408284a819b2abfda1834bc8
   RNDeviceInfo: 3f2e5fcca3637f75c6d30ba287293c2f97206781
-  RNDominantColor: 72126cb96ffedf4bcd564ed00e2e578f5b93e0d6
+  RNDominantColor: 7c17c31201566a592ba4b2fbe2bb7e00df468753
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFBApp: 67229e8085ab427c935defad2a6c3fc57c7f656d
   RNFBCrashlytics: 5fa31a9936f64be7bd4efbaf05ec64f006ebd862
@@ -2700,7 +2745,7 @@ SPEC CHECKSUMS:
   RNKeyboard: 14793d75953d99c6d950090b8e9698b234c5d08c
   RNKeychain: 401c994100e0f5f18d4f268060b5f24f6abc0f57
   RNLanguages: 962e562af0d34ab1958d89bcfdb64fafc37c513e
-  RNOS: 31db6fa4a197d179afbba9e6b4d28d450a7f250b
+  RNOS: 6f2f9a70895bbbfbdad7196abd952e7b01d45027
   RNPermissions: a6d03ec9a68461f78833f03ea03151c518876156
   RNReactNativeHapticFeedback: 2db53cf1075a3046227b8131a5cba84f25abccdc
   RNReanimated: ddc60075b382b872662cadaf9972b07d52a8fce7
@@ -2708,7 +2753,6 @@ SPEC CHECKSUMS:
   RNSentry: 55b6db5ae70ecfe5063bb94d685ee693b8a1ba60
   RNStoreReview: 53ad48c45930ec72e864481836dd82e6c4d87ef3
   RNSVG: 3cd6669b7ad658c8b482db630dccf364c3b59cfb
-  RNTextSize: 21c94a67819fbf2c358a219bf6d251e3be9e5f29
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   segment-analytics-react-native: d57ed4971cbb995706babf29215ebdbf242ecdab
@@ -2719,7 +2763,6 @@ SPEC CHECKSUMS:
   SSZipArchive: c69881e8ac5521f0e622291387add5f60f30f3c4
   TcpSockets: 4ef55305239923b343ed0a378b1fac188b1373b0
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
-  ToolTipMenu: 8ac61aded0fbc4acfe7e84a7d0c9479d15a9a382
   Yoga: fd4ca32b81c4069b4175ad9460b042e17db94b66
 
 PODFILE CHECKSUM: d24f9d67855a751de4ac6c0862887878fab2be8d

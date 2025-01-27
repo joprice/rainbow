@@ -5,23 +5,24 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 #import <Foundation/Foundation.h>
 #import <Rainbow_Internals/Internals.h>
 
-#import <React/RCTBridgeDelegate.h>
 #import <Firebase.h>
+#import <RCTAppDelegate.h>
+#import <React/RCTBridgeDelegate.h>
 #import <UIKit/UIKit.h>
 #import <UserNotifications/UserNotifications.h>
 
 @class RCTBridge;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate>
+@interface AppDelegate
+    : RCTAppDelegate <UNUserNotificationCenterDelegate, FIRMessagingDelegate>
 
 - (void)hideSplashScreenAnimated;
 
-@property (nonatomic, strong) UIWindow *window;
-@property (nonatomic) BOOL isRapRunning;
-@property (nonatomic, strong) RCTBridge *bridge;
+// @property(nonatomic, strong) UIWindow *window;
+@property(nonatomic) BOOL isRapRunning;
+// @property(nonatomic, strong) RCTBridge *bridge;
 
 @end

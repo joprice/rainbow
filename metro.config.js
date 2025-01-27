@@ -1,5 +1,7 @@
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
-const { wrapWithReanimatedMetroConfig, } = require('react-native-reanimated/metro-config');
+const {
+  wrapWithReanimatedMetroConfig,
+} = require('react-native-reanimated/metro-config');
 const defaultConfig = getDefaultConfig(__dirname);
 // eslint-disable-next-line import/no-extraneous-dependencies
 // const blacklist = require('metro-config/src/defaults/blacklist');
@@ -17,14 +19,14 @@ const defaultConfig = getDefaultConfig(__dirname);
 
 // const defaultConfig = getDefaultConfig(__dirname);
 //
-// const transformer = {
-//   getTransformOptions: async () => ({
-//     transform: {
-//       experimentalImportSupport: true,
-//       inlineRequires: true,
-//     },
-//   }),
-// };
+const transformer = {
+  getTransformOptions: async () => ({
+    transform: {
+      experimentalImportSupport: true,
+      inlineRequires: true,
+    },
+  }),
+};
 //
 // // Only run metro transforms on CI
 // if (process.env.CI) {
@@ -35,17 +37,16 @@ const defaultConfig = getDefaultConfig(__dirname);
 //   resolver: {
 //     //blacklistRE,
 //   },
-//   transformer,
 // };
 //
 const config = {
-   // transformer: {
-   //    babelTransformerPath: require.resolve(
-   //      "react-native-svg-transformer/react-native"
-   //    )
-   //  },
-}
+  // transformer: {
+  //    babelTransformerPath: require.resolve(
+  //      "react-native-svg-transformer/react-native"
+  //    )
+  //  },
+  transformer,
+};
 module.exports = wrapWithReanimatedMetroConfig(
   mergeConfig(defaultConfig, config)
 );
-

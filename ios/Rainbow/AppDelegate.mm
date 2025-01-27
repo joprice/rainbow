@@ -5,38 +5,39 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import "Firebase.h"
 #import "AppDelegate.h"
+#import "Firebase.h"
+#import "RNSplashScreen.h"
+#import "Rainbow-Swift.h"
 #import <RNBranch/RNBranch.h>
+#import <RNCPushNotificationIOS.h>
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
-#import <React/RCTRootView.h>
 #import <React/RCTReloadCommand.h>
-#import <RNCPushNotificationIOS.h>
+#import <React/RCTRootView.h>
 #import <Sentry/Sentry.h>
-#import "RNSplashScreen.h"
-#import "Rainbow-Swift.h"
 
-//#if DEBUG
-//#import <FlipperKit/FlipperClient.h>
-//#import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
-//#import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
-//#import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
-//#import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
-//#import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
+// #if DEBUG
+// #import <FlipperKit/FlipperClient.h>
+// #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
+// #import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
+// #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
+// #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
+// #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 //
 //
-//static void InitializeFlipper(UIApplication *application) {
-//  FlipperClient *client = [FlipperClient sharedClient];
-//  SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
-//  [client addPlugin:[[FlipperKitLayoutPlugin alloc] initWithRootNode:application withDescriptorMapper:layoutDescriptorMapper]];
-//  [client addPlugin:[[FKUserDefaultsPlugin alloc] initWithSuiteName:nil]];
-//  [client addPlugin:[FlipperKitReactPlugin new]];
-//  [client addPlugin:[[FlipperKitNetworkPlugin alloc] initWithNetworkAdapter:[SKIOSNetworkAdapter new]]];
-//  [client start];
-//}
-//#endif
+// static void InitializeFlipper(UIApplication *application) {
+//   FlipperClient *client = [FlipperClient sharedClient];
+//   SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc]
+//   initWithDefaults]; [client addPlugin:[[FlipperKitLayoutPlugin alloc]
+//   initWithRootNode:application withDescriptorMapper:layoutDescriptorMapper]];
+//   [client addPlugin:[[FKUserDefaultsPlugin alloc] initWithSuiteName:nil]];
+//   [client addPlugin:[FlipperKitReactPlugin new]];
+//   [client addPlugin:[[FlipperKitNetworkPlugin alloc]
+//   initWithNetworkAdapter:[SKIOSNetworkAdapter new]]]; [client start];
+// }
+// #endif
 
 @interface RainbowSplashScreenManager : NSObject <RCTBridgeModule>
 @end
@@ -50,71 +51,57 @@
 RCT_EXPORT_MODULE(RainbowSplashScreen);
 
 RCT_EXPORT_METHOD(hideAnimated) {
-  [((AppDelegate*) UIApplication.sharedApplication.delegate) hideSplashScreenAnimated];
+  [((AppDelegate *)UIApplication.sharedApplication.delegate)
+      hideSplashScreenAnimated];
 }
 
 @end
 
 @implementation AppDelegate
 - (void)hideSplashScreenAnimated {
-  UIView* subview = self.window.rootViewController.view.subviews.lastObject;
-  UIView* rainbowIcon = subview.subviews.firstObject;
+  UIView *subview = self.window.rootViewController.view.subviews.lastObject;
+  UIView *rainbowIcon = subview.subviews.firstObject;
   if (![rainbowIcon isKindOfClass:UIImageView.class]) {
     return;
   }
   [UIView animateWithDuration:0.1
-                        delay:0.0
-                      options:UIViewAnimationOptionCurveEaseIn
-  animations:^{
-      rainbowIcon.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.0000000001, 0.0000000001);
-      subview.alpha = 0.0;
-  } completion:^(BOOL finished) {
-      rainbowIcon.hidden = YES;
-      [RNSplashScreen hide];
-  }];
+      delay:0.0
+      options:UIViewAnimationOptionCurveEaseIn
+      animations:^{
+        rainbowIcon.transform = CGAffineTransformScale(
+            CGAffineTransformIdentity, 0.0000000001, 0.0000000001);
+        subview.alpha = 0.0;
+      }
+      completion:^(BOOL finished) {
+        rainbowIcon.hidden = YES;
+        [RNSplashScreen hide];
+      }];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  
-  // Developer support; define whether internal support has been declared for this build.
-  NSLog(@"⚙️ Rainbow internals are %@.", RAINBOW_INTERNALS_ENABLED ? @"enabled" : @"disabled");
-  
-//  #if DEBUG
-//    InitializeFlipper(application);
-//  #endif
+- (void)customizeRootView:(RCTRootView *)rootView {
+  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f
+                                                    green:1.0f
+                                                     blue:1.0f
+                                                    alpha:1];
 
-  [FIRApp configure];
-  // Define UNUserNotificationCenter
-  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-  center.delegate = self;
+  //self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  //UIViewController *rootViewController = [UIViewController new];
+  //rootViewController.view = rootView;
+  //self.window.rootViewController = rootViewController;
+  //[self.window makeKeyAndVisible];
 
-  [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self
+         selector:@selector(handleRapInProgress:)
+             name:@"rapInProgress"
+           object:nil];
 
-  // React Native - Defaults
-  self.bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:self.bridge
-                                                   moduleName:@"Rainbow"
-                                            initialProperties:nil];
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self
+         selector:@selector(handleRapComplete:)
+             name:@"rapCompleted"
+           object:nil];
 
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
-  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
-  [self.window makeKeyAndVisible];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self
-  selector:@selector(handleRapInProgress:)
-      name:@"rapInProgress"
-    object:nil];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self
-  selector:@selector(handleRapComplete:)
-      name:@"rapCompleted"
-    object:nil];
-  
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(handleRsEscape:)
                                                name:@"rsEscape"
@@ -122,13 +109,42 @@ RCT_EXPORT_METHOD(hideAnimated) {
 
   // Splashscreen - react-native-splash-screen
   [RNSplashScreen showSplash:@"LaunchScreen" inRootView:rootView];
-  
-  return YES;
 }
 
--(void)handleRsEscape:(NSNotification *)notification {
-  NSDictionary* userInfo = notification.userInfo;
-  NSString *msg = [NSString stringWithFormat:@"Escape via %@", userInfo[@"url"]];
+- (BOOL)application:(UIApplication *)application
+    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+  // Developer support; define whether internal support has been declared for
+  // this build.
+  NSLog(@"⚙️ Rainbow internals are %@.",
+        RAINBOW_INTERNALS_ENABLED ? @"enabled" : @"disabled");
+
+  //  #if DEBUG
+  //    InitializeFlipper(application);
+  //  #endif
+
+  [FIRApp configure];
+  // Define UNUserNotificationCenter
+  UNUserNotificationCenter *center =
+      [UNUserNotificationCenter currentNotificationCenter];
+  center.delegate = self;
+
+  //[RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
+
+  // React Native - Defaults
+  // self.bridge = [[RCTBridge alloc] initWithDelegate:self
+  // launchOptions:launchOptions];
+  self.moduleName = @"Rainbow";
+  self.initialProps = @{};
+
+  return [super application:application
+      didFinishLaunchingWithOptions:launchOptions];
+}
+
+- (void)handleRsEscape:(NSNotification *)notification {
+  NSDictionary *userInfo = notification.userInfo;
+  NSString *msg =
+      [NSString stringWithFormat:@"Escape via %@", userInfo[@"url"]];
   SentryBreadcrumb *breadcrumb = [[SentryBreadcrumb alloc] init];
   [breadcrumb setMessage:msg];
   [SentrySDK addBreadcrumb:breadcrumb];
@@ -143,82 +159,102 @@ RCT_EXPORT_METHOD(hideAnimated) {
   self.isRapRunning = NO;
 }
 
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
-{
-  #if DEBUG
-    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
-  #else
-    return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-  #endif
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge {
+  return [self bundleURL];
 }
 
-//Called when a notification is delivered to a foreground app.
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
-{
-  completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
+- (NSURL *)bundleURL {
+#if DEBUG
+  return
+      [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+#else
+  return [[NSBundle mainBundle] URLForResource:@"main"
+                                 withExtension:@"jsbundle"];
+#endif
+}
+
+// Called when a notification is delivered to a foreground app.
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:
+             (void (^)(UNNotificationPresentationOptions options))
+                 completionHandler {
+  completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert |
+                    UNAuthorizationOptionBadge);
 }
 
 // Required to register for notifications
--(void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-  [RNCPushNotificationIOS didRegisterUserNotificationSettings:notificationSettings];
+- (void)application:(UIApplication *)application
+    didRegisterUserNotificationSettings:
+        (UIUserNotificationSettings *)notificationSettings {
+  [RNCPushNotificationIOS
+      didRegisterUserNotificationSettings:notificationSettings];
 }
 // Required for the register event.
--(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-  [RNCPushNotificationIOS didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+- (void)application:(UIApplication *)application
+    didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+  [RNCPushNotificationIOS
+      didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
-// Required for the notification event. You must call the completion handler after handling the remote notification.
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-  [RNCPushNotificationIOS didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+// Required for the notification event. You must call the completion handler
+// after handling the remote notification.
+- (void)application:(UIApplication *)application
+    didReceiveRemoteNotification:(NSDictionary *)userInfo
+          fetchCompletionHandler:
+              (void (^)(UIBackgroundFetchResult))completionHandler {
+  [RNCPushNotificationIOS didReceiveRemoteNotification:userInfo
+                                fetchCompletionHandler:completionHandler];
 }
 
 // Required for the localNotification event.
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
+- (void)application:(UIApplication *)application
+    didReceiveLocalNotification:(UILocalNotification *)notification {
   [RNCPushNotificationIOS didReceiveLocalNotification:notification];
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-	return [RCTLinkingManager application:application openURL:url
-	sourceApplication:sourceApplication annotation:annotation];
+- (BOOL)application:(UIApplication *)application
+              openURL:(NSURL *)url
+    sourceApplication:(NSString *)sourceApplication
+           annotation:(id)annotation {
+  return [RCTLinkingManager application:application
+                                openURL:url
+                      sourceApplication:sourceApplication
+                             annotation:annotation];
 }
 
 // Only if your app is using [Universal Links]
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity
- restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
-{
+- (BOOL)application:(UIApplication *)application
+    continueUserActivity:(NSUserActivity *)userActivity
+      restorationHandler:(void (^)(NSArray *_Nullable))restorationHandler {
 
   return [RNBranch continueUserActivity:userActivity];
-
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 
-  if(self.isRapRunning){
-    SentryMessage *msg = [[SentryMessage alloc] initWithFormatted:@"applicationWillTerminate was called"];
+  if (self.isRapRunning) {
+    SentryMessage *msg = [[SentryMessage alloc]
+        initWithFormatted:@"applicationWillTerminate was called"];
     SentryEvent *sentryEvent = [[SentryEvent alloc] init];
-    [sentryEvent setMessage: msg];
+    [sentryEvent setMessage:msg];
     [SentrySDK captureEvent:sentryEvent];
   }
-
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    if ([RNBranch application:app openURL:url options:options])  {
-        // do other deep link routing for other SDKs
-    }
-    return YES;
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:
+                (NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+  if ([RNBranch application:app openURL:url options:options]) {
+    // do other deep link routing for other SDKs
+  }
+  return YES;
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
   BOOL action = [SettingsBundleHelper checkAndExecuteSettings];
-  if(action){
+  if (action) {
     [SentrySDK captureMessage:@"Keychain Wiped!"];
     RCTTriggerReloadCommandListeners(@"keychain wiped");
   }

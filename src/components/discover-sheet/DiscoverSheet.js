@@ -3,7 +3,7 @@ import React, { useMemo, useRef } from 'react';
 import { findNodeHandle, NativeModules, View } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 // eslint-disable-next-line import/no-unresolved
-import SlackBottomSheet from 'react-native-slack-bottom-sheet';
+// import SlackBottomSheet from 'react-native-slack-bottom-sheet';
 import DiscoverSheetContent from './DiscoverSheetContent';
 import DiscoverSheetContext from './DiscoverSheetContext';
 import { deviceUtils } from '@rainbow-me/utils';
@@ -53,27 +53,26 @@ function DiscoverSheetIOS() {
   );
 
   // noinspection JSConstructorReturnsPrimitive
-  return (
-    <DiscoverSheetContext.Provider value={value}>
-      <SlackBottomSheet
-        allowsDragToDismiss={false}
-        allowsTapToDismiss={false}
-        backgroundOpacity={0}
-        blocksBackgroundTouches={false}
-        cornerRadius={30}
-        initialAnimation={false}
-        interactsWithOuterScrollView
-        isHapticFeedbackEnabled={false}
-        presentGlobally={false}
-        scrollsToTopOnTapStatusBar={isFocused}
-        showDragIndicator={false}
-        topOffset={insets.top}
-        unmountAnimation={false}
-      >
-        <DiscoverSheetContent />
-      </SlackBottomSheet>
-    </DiscoverSheetContext.Provider>
-  );
+  return <View></View>;
+  // {/* <DiscoverSheetContext.Provider value={value}> */}
+  // {/*   <SlackBottomSheet */}
+  // {/*     allowsDragToDismiss={false} */}
+  // {/*     allowsTapToDismiss={false} */}
+  // {/*     backgroundOpacity={0} */}
+  // {/*     blocksBackgroundTouches={false} */}
+  // {/*     cornerRadius={30} */}
+  // {/*     initialAnimation={false} */}
+  // {/*     interactsWithOuterScrollView */}
+  // {/*     isHapticFeedbackEnabled={false} */}
+  // {/*     presentGlobally={false} */}
+  // {/*     scrollsToTopOnTapStatusBar={isFocused} */}
+  // {/*     showDragIndicator={false} */}
+  // {/*     topOffset={insets.top} */}
+  // {/*     unmountAnimation={false} */}
+  // {/*   > */}
+  // {/*     <DiscoverSheetContent /> */}
+  // {/*   </SlackBottomSheet> */}
+  // {/* </DiscoverSheetContext.Provider> */}
 }
 
 export default ios ? DiscoverSheetIOS : DiscoverSheetAndroid;
